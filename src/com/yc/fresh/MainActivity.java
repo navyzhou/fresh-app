@@ -44,6 +44,7 @@ public class MainActivity extends Activity {
 			}
 
 			public void onFinish() {
+				text.setText("进入商店...");
 				Intent intent = new Intent(MainActivity.this, ContentActivity.class);
 				startActivity(intent); // 切换页面
 			}

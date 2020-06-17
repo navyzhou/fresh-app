@@ -7,6 +7,7 @@ import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +18,10 @@ import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class ContentActivity extends Activity {
 	private Activity activity;
@@ -216,6 +221,30 @@ public class ContentActivity extends Activity {
 			return true;
 		}
 		
+		if (id == R.id.message) { // 说明是要查看信息
+			message();
+			return true;
+		}
+		
 		return super.onOptionsItemSelected(item);
+	}
+	
+	/**
+	 * 处理查看消息
+	 */
+	private void message() {
+		Toast toast = new Toast(ContentActivity.this);
+		toast.setDuration(Toast.LENGTH_LONG); // 持续时间
+		toast.setGravity(Gravity.CENTER, 0, 0); // 对齐方式
+		LinearLayout ll = new LinearLayout(this);
+		ImageView iv = new ImageView(this);
+		iv.setImageResource(R.drawable.ic_launcher);
+		iv.setPadding(0, 0, 5, 0);
+		ll.addView(iv);
+		TextView tv = new TextView(this);
+		tv.setText("没有更多消息了...");
+		ll.addView(tv);
+		toast.setView(ll);
+		toast.show();
 	}
 }

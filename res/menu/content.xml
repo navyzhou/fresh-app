@@ -17,7 +17,7 @@
         android:title="@string/login"/>
     
     <item
-        android:id="@+id/messagelogin"
+        android:id="@+id/message"
         android:orderInCategory="100"
         android:icon="@drawable/navy_message"
         android:showAsAction="never"
