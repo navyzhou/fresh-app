@@ -3,9 +3,30 @@
     tools:context="com.yc.fresh.ContentActivity" >
 
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/home"
+        android:orderInCategory="100"
+        android:icon="@drawable/navy_home"
+        android:showAsAction="never"
+        android:title="@string/home"/>
+    
+    <item
+        android:id="@+id/login"
+        android:orderInCategory="100"
+        android:icon="@drawable/navy_me"
+        android:showAsAction="never"
+        android:title="@string/login"/>
+    
+    <item
+        android:id="@+id/messagelogin"
+        android:orderInCategory="100"
+        android:icon="@drawable/navy_message"
+        android:showAsAction="never"
+        android:title="@string/message"/>
+    
+    <item
+        android:id="@+id/changeAccount"
         android:orderInCategory="100"
         android:showAsAction="never"
-        android:title="@string/action_settings"/>
-
+        android:icon="@drawable/navy_share"
+        android:title="@string/changeAccount"/>
 </menu>

@@ -208,9 +208,14 @@ public class ContentActivity extends Activity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.action_settings) {
+		if (id == R.id.login) { // 说明是要登录
+			return true;
+		} 
+		
+		if (id == R.id.changeAccount) { // 说明是要切换账号
 			return true;
 		}
+		
 		return super.onOptionsItemSelected(item);
 	}
 }
