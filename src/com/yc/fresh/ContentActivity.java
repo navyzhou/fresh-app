@@ -1,5 +1,6 @@
 package com.yc.fresh;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.net.http.SslError;
@@ -9,8 +10,6 @@ import android.os.Message;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.webkit.JsResult;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
@@ -18,38 +17,27 @@ import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Button;
-import android.widget.Toast;
 
-public class MainActivity2 extends Activity {
+public class ContentActivity extends Activity {
 	private Activity activity;
 	private WebView webView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_content);
 		activity = this;
-
-		bindEvent();
+		
+		gotoIndex();
 	}
-
-	private void bindEvent() {
-		Button btn = (Button) this.findViewById(R.id.button1);
-		btn.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				gotoIndex();
-			}
-		});
-	}
-
+	
 	/**
 	 * 获取链接
 	 * @param view
 	 */
+	@SuppressLint("SetJavaScriptEnabled")
 	public void gotoIndex() {
-		setContentView(R.layout.index_view);
+		// setContentView(R.layout.index_view);
 		webView = (WebView) findViewById(R.id.webView1);
 
 		if (Build.VERSION.SDK_INT >= 19) {
@@ -79,7 +67,7 @@ public class MainActivity2 extends Activity {
 		WebSettings ws = webView.getSettings();
 		ws.setJavaScriptEnabled(true);
 		ws.setAllowContentAccess(true);
-		webView.loadUrl("http://192.168.1.4:8080/snacknet/index.html");
+		webView.loadUrl("http://192.168.1.5:8080/fresh/index.html");
 	}
 
 	class GameWebViewClient extends WebViewClient {
@@ -179,13 +167,11 @@ public class MainActivity2 extends Activity {
 			// TODO Auto-generated method stub
 			super.onFormResubmission(view, dontResend, resend);
 		}	
-		
+
 		@Override
 		public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
 			handler.proceed();
 		}
-
-
 
 		/**
 		 * 
@@ -196,43 +182,23 @@ public class MainActivity2 extends Activity {
 			super.doUpdateVisitedHistory(view, url, isReload);
 		}
 	}
-
+	
 	/**
-	 * 添加数据
-	 * @param view
+	 * 返回按钮事件
 	 */
-	public void insertData(View view) {
-		Toast.makeText(MainActivity2.this, "操作数为：", Toast.LENGTH_SHORT).show();
-	}
-
-	/**
-	 * 修改数据
-	 * @param view
-	 */
-	public void updatequeryData(View view) {
-
-	}
-
-	/**
-	 * 删除数据
-	 * @param view
-	 */
-	public void deleteData(View view) {
-
-	}
-
-	/**
-	 * 查询数据
-	 * @param view
-	 */
-	public void queryData(View view) {
-
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) {
+			webView.goBack();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
+		getMenuInflater().inflate(R.menu.content, menu);
 		return true;
 	}
 
@@ -246,14 +212,5 @@ public class MainActivity2 extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
-	}
-
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) {
-			webView.goBack();
-			return true;
-		}
-		return super.onKeyDown(keyCode, event);
 	}
 }
